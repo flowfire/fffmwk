@@ -1,5 +1,7 @@
 一个简单的单页面应用的 nodejs server  
-  
+
+版本： v1.0.1
+
 使用方法  
 clone 该 repo  
 使用 node index 启动服务器  
