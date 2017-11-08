@@ -1,0 +1,8 @@
+{
+    "port": 443,
+    "http2": true,
+    "https": true,
+    "https_key": "key.pem",
+    "https_cert": "cert.pem",
+    "nomatch": "index.html"
+}
