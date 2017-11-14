@@ -2,7 +2,13 @@
     "port": 443,
     "http2": true,
     "https": true,
-    "https_key": "key.pem",
-    "https_cert": "cert.pem",
-    "nomatch": "static/index.html"
+    "rootPath": "C:/files/testserverdir/",
+    "staticPath": "static",
+    "apiPath": "api",
+    "logPath": "log",
+    "errPagePath": "error",
+    "https_key": "certificate/key.pem",
+    "https_cert": "certificate/cert.pem",
+    "nomatch": "static/index.html",
+    "staticCache": 10
 }

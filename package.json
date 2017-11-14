@@ -1,0 +1,29 @@
+{
+    "name": "fffmwk",
+    "version": "1.0.0",
+    "description": "A simple node server for single page application.",
+    "main": "index.js",
+    "scripts": {
+        "test": "test",
+        "run": ""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/flowfire/fffmwk.git"
+    },
+    "keywords": [
+        "node",
+        "nodejs",
+        "framework",
+        "fff",
+        "fffmwk",
+        "angular",
+        "f2e"
+    ],
+    "author": "flowfire",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/flowfire/fffmwk/issues"
+    },
+    "homepage": "https://github.com/flowfire/fffmwk#readme"
+}
