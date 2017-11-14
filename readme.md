@@ -101,3 +101,7 @@ module.exports = ({
     return result;  
 }  
 ```
+
+版本 1.1.0
+为 api 模块增加了 async 方法支持，允许导出 async 模块
+
