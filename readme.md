@@ -23,6 +23,12 @@ server.json is config file.
     "errPagePath": "error",  
     "https_key": "certificate/key.pem",  
     "https_cert": "certificate/cert.pem",  
+    "apiHeaders": {  
+        "Content-Type": "application/json; utf-8",  
+        "Access-Control-Allow-Origin": "*",  
+        "Access-Control-Allow-Methods": "*"  
+    },  
+    "apiStringify": "json",  
     "nomatch": "static/index.html",  
     "staticCache": 10  
 }  
@@ -37,7 +43,9 @@ apiPath: the api mode path, relative to rootPath. No slash need in the end.
 logPath: the log path, relative to rootPath. No slash need in the end. There is no log for now.  
 errPagePath: the http error file path, relative to rootPath. No slash need in the end. Name with statusCode + ".html". eg. 404.html  
 https_key: required if "https" is "true", the path of private key with pem encoding. Relative to rootPath.  
-https_cert: required if "https" is "true", the path of public key with pem encoding. Relative to rootPath.  
+https_cert: required if "https" is "true", the path of public key with pem encoding. Relative to rootPath.
+apiHeaders: default Api headers. The api module will set these headers as default. It's useful while you want to access CROS in developer mode but not in product mode.
+apiStringify: api return body default format. Can be set to "json", "toString" or "none";  
 nomatch: if the static file is not found, show this file. In the single page application, this is usually set to the 'index.html'. Relative to rootPath.  
 staticCache: cache of static file. Set to 0 means no cache ( read file any time you use it. ). Set to number with out 0 ( read file while last read timestamp is older than it. Unit: second. ). String "Infinity" ( Cache forever until restart the server ).  
   
@@ -87,11 +95,7 @@ https://localhost/aaaa/index.html  =>  static/aaaa/index.html
 If file do not exists:  
     If nomatch is set, the response is the file in nomatch path, and statusCode is 200  
     If nomatch is empty, the response is the 404.html file in errPagePath, and statusCode is 404  
-  
-  
-对于以 api 开头的路径，视为 api，会从 api 文件夹下递归查找相应的模块进行解析，  
-如果查找不到对应的 文件/文件夹 则会自动匹配以下划线 "_" 开头的 文件/文件夹， 并将其当作变量传入最终定位到的 api 模块中  
-注：模块应该是标准的 node 模块，并且路径中不带后缀名  
+
   
 For the url start with 'api', the server will find node module recursive.  
 If there is no such file or folder, the server will match the file/folder which start with "_", and pass them to the api module as a parameter.  
@@ -119,13 +123,18 @@ module.exports = ({
     body, // request body, when post or patch or something else.  
     resquest, // node server resquest  
 }) => {  
+    let result = {};
     result.body = { a: "b" }  
   
     /**  
       * result.statusCode : http statisCode  
       * result.statusMessage : http statusMessage  
       * result.headers: {},  // object, response headers, default :  { "Content-Type" : "text/json; charset=utf-8"}  
-      * result.body: "", // response body, if type of response body is not "string", it will be auto encrypt with JSON.stringify.  
+      * result.body: "", // response body, if type of response body is not "string", it will be auto encrypt. 
+                         // while apiStringify is:
+                         // "json" => JSON.stringify(result.body);
+                         // "toString" => result.body.toString();
+                         // "none" => result.body;
       **/  
   
     return result; // you should return a object like this.  
