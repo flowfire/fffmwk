@@ -2,18 +2,27 @@
 version: v2.0.0  
   
 How to use  
-clone the repo  
-start the server with  
-` node index ` 
-or 
-` node index --start ` 
+clone the repo    
+start the server with    
+` node index `   
+or   
+` node index start `   
 
 
-stop: 
-` node index --stop ` 
+stop:   
+` node index stop `   
+  
+restart  
+` node index restart `  
 
-restart
-` node index --restart ` 
+for developement mode :  
+` node index start --dev `   
+in developement mode , the server will auto restart after the source file change.
+
+As normal, the server will auto stop last daemon while starting a server.  
+If you want to start multiple server (Actually, I don't know when to use it. So this is just an option ;-) Use command below:  
+` node index start --multi `('start' required)    
+
 
   
 server.json is config file.  
