@@ -25,5 +25,10 @@
     "bugs": {
         "url": "https://github.com/flowfire/fffmwk/issues"
     },
-    "homepage": "https://github.com/flowfire/fffmwk#readme"
+    "homepage": "https://github.com/flowfire/fffmwk#readme",
+    "dependencies": {
+        "forever": "^0.15.3",
+        "forever-monitor": "^1.7.1",
+        "yargs": "^10.0.3"
+    }
 }

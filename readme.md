@@ -4,11 +4,17 @@ version: v2.0.0
 How to use  
 clone the repo  
 start the server with  
-` node index `  
-  
-You can use nohup or other tools to run it background.  
-eg.  
-` nohup node index & `  
+` node index ` 
+or 
+` node index --start ` 
+
+
+stop: 
+` node index --stop ` 
+
+restart
+` node index --restart ` 
+
   
 server.json is config file.  
 ```  
