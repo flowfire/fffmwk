@@ -3,8 +3,6 @@ let config = JSON.parse(fs.readFileSync("./server.json"));
 let argv = require("yargs").argv;
 let forever = require("forever");
 
-console.log(argv);
-
 const UID = 'FFFMWK';
 let watch = argv.dev;
 
@@ -20,7 +18,7 @@ forever.list(false, (err, data) => {
         });
 
     if (argv._.indexOf("stop") !== -1) {
-        if (data.length) console.log("Server is not runing!");
+        if (!data.length) console.log("Server is not runing!");
         return;
     };
 
