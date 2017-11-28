@@ -27,6 +27,7 @@
     },
     "homepage": "https://github.com/flowfire/fffmwk#readme",
     "dependencies": {
+        "chokidar": "^1.7.0",
         "forever": "^0.15.3",
         "forever-monitor": "^1.7.1",
         "yargs": "^10.0.3"

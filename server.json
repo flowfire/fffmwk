@@ -10,5 +10,5 @@
     "https_key": "certificate/key.pem",
     "https_cert": "certificate/cert.pem",
     "nomatch": "static/index.html",
-    "staticCache": 10
+    "staticCache": 0
 }

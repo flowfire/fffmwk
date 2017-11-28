@@ -4,7 +4,7 @@ let argv = require("yargs").argv;
 let forever = require("forever");
 
 const UID = 'FFFMWK';
-let watch = argv.dev;
+let watch = argv.watch;
 
 forever.list(false, (err, data) => {
     data = data || [];
@@ -24,9 +24,22 @@ forever.list(false, (err, data) => {
 
     forever.startDaemon("./lib/server.js", {
         uid: UID,
-        watch: true,
-        sourceDir: config.rootPath,
     });
+
+    if (watch) {
+        let watcher = require("chokidar");
+
+        watcher.watch([
+            config.rootPath + config.apiPath,
+            config.rootPath + config.staticPath,
+        ]).on("change", () => {
+            forever.stop(UID);
+            forever.startDaemon("./lib/server.js", {
+                uid: UID,
+            });
+        });
+    }
+
     console.log("Server started" + (watch ? " in developement mode" : "") + ".");
 
 });

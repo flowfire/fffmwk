@@ -15,9 +15,10 @@ stop:
 restart  
 ` node index restart `  
 
-for developement mode :  
-` node index start --dev `   
-in developement mode , the server will auto restart after the source file change.
+watch file change :  
+` node index start --watch `   
+the server will auto restart after the source file change.
+Note: The server will not run as daemon in watch mode.
 
 As normal, the server will auto stop last daemon while starting a server.  
 If you want to start multiple server (Actually, I don't know when to use it. So this is just an option ;-) Use command below:  
