@@ -184,3 +184,5 @@ module.exports = server => {
 
 ```
 full Api: https://www.npmjs.com/package/websocket
+
+NOTE: https does not support websocket.
