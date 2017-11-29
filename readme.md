@@ -27,7 +27,7 @@ As normal, the server will auto stop last daemon while starting a server.
 If you want to start multiple server (Actually, I don't know when to use it. So this is just an option ;-) Use command below:  
 ` node index start --multi `('start' required)    
 
-
+Rename server.json to server.json ,
   
 server.json is config file.  
 ```  
