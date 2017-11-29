@@ -5,6 +5,7 @@
     "rootPath": "C:/files/testserverdir/",
     "staticPath": "static",
     "apiPath": "api",
+    "socket": "socket/socket",
     "logPath": "log",
     "errPagePath": "error",
     "https_key": "certificate/key.pem",

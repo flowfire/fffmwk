@@ -1,5 +1,8 @@
 # A simple node server for single page application #  
-version: v2.0.0  
+version: v2.1.0  
+
+NOTE: This tool depemd on global forever tool.
+` npm -g install forever `
   
 How to use  
 clone the repo    
@@ -35,6 +38,7 @@ server.json is config file.
     "rootPath": "C:/files/testserverdir/",  
     "staticPath": "static",  
     "apiPath": "api",  
+    "socket": "socket/socket",  
     "logPath": "log",  
     "errPagePath": "error",  
     "https_key": "certificate/key.pem",  
@@ -55,7 +59,8 @@ http2: enable http2
 https: enable https  
 rootPath: root Path, the file root path, (suggest) use absolute path.  
 staticPath: the static file path, relative to rootPath. No slash need in the end.  
-apiPath: the api mode path, relative to rootPath. No slash need in the end.  
+apiPath: the api mode path, relative to rootPath. No slash need in the end. 
+socket: the websocket module path,  relative to rootPath. No slash need in the end. 
 logPath: the log path, relative to rootPath. No slash need in the end. There is no log for now.  
 errPagePath: the http error file path, relative to rootPath. No slash need in the end. Name with statusCode + ".html". eg. 404.html  
 https_key: required if "https" is "true", the path of private key with pem encoding. Relative to rootPath.  
@@ -164,3 +169,24 @@ module.exports = async ({ param, body, resquest }) => {
     return result;  
 }  
 ```  
+
+
+Socket module should export a module with 1 parameter required.  
+The parameter is ` io ` in socket.io;  
+e.g  
+```
+// Internal implementation
+let io = require('socket.io')(server);
+let module = require(socket);
+module(io);
+```
+ 
+example module 
+```
+module.exports = io => {
+    io.on("connection", client => {
+        client.on("event", () => {});
+    });
+}
+
+```

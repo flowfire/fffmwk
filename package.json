@@ -30,6 +30,7 @@
         "chokidar": "^1.7.0",
         "forever": "^0.15.3",
         "forever-monitor": "^1.7.1",
+        "socket.io": "^2.0.4",
         "yargs": "^10.0.3"
     }
 }
