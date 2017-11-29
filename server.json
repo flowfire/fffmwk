@@ -2,7 +2,7 @@
     "port": 443,
     "http2": true,
     "https": true,
-    "rootPath": "C:/files/testserverdir/",
+    "rootPath": "C:/files/writestory/server",
     "staticPath": "static",
     "apiPath": "api",
     "socket": "socket/socket",
