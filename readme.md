@@ -172,21 +172,15 @@ module.exports = async ({ param, body, resquest }) => {
 
 
 Socket module should export a module with 1 parameter required.  
-The parameter is ` io ` in socket.io;  
-e.g  
-```
-// Internal implementation
-let io = require('socket.io')(server);
-let module = require(socket);
-module(io);
-```
- 
+The parameter is websocketserver;  
+
 example module 
 ```
-module.exports = io => {
-    io.on("connection", client => {
-        client.on("event", () => {});
+module.exports = server => {
+    server.on("connect", client => {
+        client.send("Hey!");
     });
 }
 
 ```
+full Api: https://www.npmjs.com/package/websocket
