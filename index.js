@@ -4,14 +4,35 @@ let config = JSON.parse(fs.readFileSync("./server.json"));
 let argv = require("yargs").argv;
 let commander = require("commander");
 
-const UID = 'FFFMWK';
-let watch = argv.watch;
+config.rootPath += config.rootPath.endsWith("/") ? "" : "/";
+for (let key in config) {
+    switch (key) {
+        case "staticPath":
+        case "apiPath":
+        case "errPagePath":
+            config[key] += config[key].endsWith("/") ? "" : "/";
+        case "socketFile":
+        case "httpsKeyFile":
+        case "httpsCertFile":
+        case "nomatchFile":
+        case "logFile":
+        case "errFile":
+            if (!config[key].startsWith("/")) config[key] = config.rootPath + config[key];
+            break;
+    }
+}
 
-console
+commander
+    .version("0.0.1")
+    .command("start", "start the server")
+    .command("stop", "stop the server")
+    .command("restart", "restart the server")
+    .parse(process.argv);
+
+console.log(process.argv);
 /*
 
 
-*/
 
 forever.list(false, (err, data) => {
     data = data || [];
@@ -50,3 +71,4 @@ forever.list(false, (err, data) => {
     console.log("Server started" + (watch ? " in developement mode" : "") + ".");
 
 });
+*/
