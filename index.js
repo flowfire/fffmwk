@@ -1,10 +1,17 @@
+let daemon = require("daemon");
 let fs = require("fs");
 let config = JSON.parse(fs.readFileSync("./server.json"));
 let argv = require("yargs").argv;
-let forever = require("forever");
+let commander = require("commander");
 
 const UID = 'FFFMWK';
 let watch = argv.watch;
+
+console
+/*
+
+
+*/
 
 forever.list(false, (err, data) => {
     data = data || [];
