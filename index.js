@@ -1,9 +1,22 @@
-let daemon = require("daemon");
-let fs = require("fs");
-let config = JSON.parse(fs.readFileSync("./server.json"));
-let argv = require("yargs").argv;
-let commander = require("commander");
+#!/usr/bin/env node
 
+
+let cmd = require("commander");
+cmd
+    .version("0.0.1")
+    .option("-s, --server <action>", "start, stop or restart the server", /^(start|stop|restart)$/, "start")
+    .option("-c, --config [path]", "config file path", path => {
+        if (path.startsWith("/")) return path;
+        return process.cwd() + "/" + path;
+    }, process.cwd() + "/server.json")
+    .option("--dev", "develope mode, automatically restart the server while file changes.")
+    .parse(process.argv);
+
+
+
+let fs = require("fs");
+let daemon = require("daemon");
+let config = JSON.parse(fs.readFileSync(cmd.config));
 config.rootPath += config.rootPath.endsWith("/") ? "" : "/";
 for (let key in config) {
     switch (key) {
@@ -22,14 +35,29 @@ for (let key in config) {
     }
 }
 
-commander
-    .version("0.0.1")
-    .command("start", "start the server")
-    .command("stop", "stop the server")
-    .command("restart", "restart the server")
-    .parse(process.argv);
+process.env.configPath = cmd.config;
 
-console.log(process.argv);
+let pidFile = __dirname + "/daemonpid.txt";
+if (cmd.server === "stop" || cmd.server === "restart") {
+    try {
+        let pid = fs.readFileSync(pidFile);
+        process.kill(pid);
+    } catch (e) {
+        console.log("daemon stopped");
+    }
+}
+
+if (cmd.server === "start" || cmd.server === "restart") {
+    let pid = daemon.daemon("./lib/server.js", [], {
+        stdout: fs.openSync(config.logFile, "a+"),
+        stderr: fs.openSync(config.errFile, "a+"),
+        env: process.env,
+        cwd: __dirname,
+    });
+    fs.writeFileSync(pidFile, pid);
+    console.log("daemon started");
+}
+
 /*
 
 

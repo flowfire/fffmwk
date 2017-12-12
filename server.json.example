@@ -2,20 +2,22 @@
     "port": 443,
     "http2": true,
     "https": true,
-    "rootPath": "C:/files/testserverdir/",
+    "rootPath": "/home/server/www/",
     "staticPath": "static",
     "apiPath": "api",
-    "socket": "socket/socket",
     "logPath": "log",
     "errPagePath": "error",
-    "https_key": "certificate/key.pem",
-    "https_cert": "certificate/cert.pem",
+    "socketFile": "socket/socket",
+    "httpsKeyFile": "certificate/key.pem",
+    "httpsCertFile": "certificate/cert.pem",
+    "nomatchFile": "static/index.html",
     "apiHeaders": {
         "Content-Type": "application/json; utf-8",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "*"
     },
     "apiStringify": "json",
-    "nomatch": "static/index.html",
-    "staticCache": 10
+    "staticCache": 10,
+    "logFile": "log/stdout.txt",
+    "errFile": "log/stderr.txt"
 }
