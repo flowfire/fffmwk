@@ -2,7 +2,7 @@
     "port": 443,
     "http2": true,
     "https": true,
-    "rootPath": "/home/server/www/",
+    "rootPath": "/var/server/",
     "staticPath": "static",
     "apiPath": "api",
     "logPath": "log",
@@ -18,6 +18,6 @@
     },
     "apiStringify": "json",
     "staticCache": 10,
-    "logFile": "log/stdout.txt",
-    "errFile": "log/stderr.txt"
+    "logFile": "log/server.log.txt",
+    "errFile": "log/server.err.txt"
 }

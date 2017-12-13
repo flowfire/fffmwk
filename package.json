@@ -12,7 +12,7 @@
         "url": "git+ssh://git@github.com/flowfire/fffmwk.git"
     },
     "bin": {
-        "fffmwk": "index.js"
+        "fff": "index.js"
     },
     "keywords": [
         "node",

@@ -1,102 +1,72 @@
 #!/usr/bin/env node
 
+(async() => {
+    let cmd = require("commander");
+    let fs = require("fs");
+    cmd
+        .version("0.0.1")
+        .option("-d, --daemon <action>", "start, stop or restart the server", /^(start|stop|restart)$/, "start")
+        .option("-c, --config [path]", "config file path", path => {
+            if (path.startsWith("/")) return path;
+            return process.cwd() + "/" + path;
+        }, process.cwd() + "/server.json")
+        .option("--init-config", "generate a server.json file in current path")
+        .option("--dev", "develope mode, automatically restart the server while file changes.")
+        .parse(process.argv);
 
-let cmd = require("commander");
-cmd
-    .version("0.0.1")
-    .option("-s, --server <action>", "start, stop or restart the server", /^(start|stop|restart)$/, "start")
-    .option("-c, --config [path]", "config file path", path => {
-        if (path.startsWith("/")) return path;
-        return process.cwd() + "/" + path;
-    }, process.cwd() + "/server.json")
-    .option("--dev", "develope mode, automatically restart the server while file changes.")
-    .parse(process.argv);
+    if (cmd.initConfig) {
+        await new Promise((res, rej) => {
+            fs.createReadStream(__dirname + "/server.json.example").pipe(fs.createWriteStream(process.cwd() + "/server.json")).on("finish", res);
+        });
 
-
-
-let fs = require("fs");
-let daemon = require("daemon");
-let config = JSON.parse(fs.readFileSync(cmd.config));
-config.rootPath += config.rootPath.endsWith("/") ? "" : "/";
-for (let key in config) {
-    switch (key) {
-        case "staticPath":
-        case "apiPath":
-        case "errPagePath":
-            config[key] += config[key].endsWith("/") ? "" : "/";
-        case "socketFile":
-        case "httpsKeyFile":
-        case "httpsCertFile":
-        case "nomatchFile":
-        case "logFile":
-        case "errFile":
-            if (!config[key].startsWith("/")) config[key] = config.rootPath + config[key];
-            break;
+        console.log("finished");
+        process.exit(0);
     }
-}
 
-process.env.configPath = cmd.config;
+    let daemon = require("daemon");
+    let config = JSON.parse(fs.readFileSync(cmd.config));
+    config.rootPath += config.rootPath.endsWith("/") ? "" : "/";
+    for (let key in config) {
+        switch (key) {
+            case "staticPath":
+            case "apiPath":
+            case "errPagePath":
+                config[key] += config[key].endsWith("/") ? "" : "/";
+            case "socketFile":
+            case "httpsKeyFile":
+            case "httpsCertFile":
+            case "nomatchFile":
+            case "logFile":
+            case "errFile":
+                if (!config[key].startsWith("/")) config[key] = config.rootPath + config[key];
+                break;
+        }
+    }
 
-let pidFile = __dirname + "/daemonpid.txt";
-if (cmd.server === "stop" || cmd.server === "restart") {
-    try {
-        let pid = fs.readFileSync(pidFile);
-        process.kill(pid);
-    } catch (e) {
+    process.env.configPath = cmd.config;
+
+    let pidFilePath = __dirname + "/daemonpid.txt";
+    if (cmd.daemon === "stop" || cmd.daemon === "restart") {
+        try {
+            let pids = fs.readFileSync(pidFilePath, "utf-8");
+            pids.trim().split("\n").forEach(pid => { try { process.kill(pid); } catch (e) {} });
+            fs.writeFileSync(pidFilePath, "");
+        } catch (e) {
+            console.log(e);
+        }
         console.log("daemon stopped");
     }
-}
 
-if (cmd.server === "start" || cmd.server === "restart") {
-    let pid = daemon.daemon("./lib/server.js", [], {
-        stdout: fs.openSync(config.logFile, "a+"),
-        stderr: fs.openSync(config.errFile, "a+"),
-        env: process.env,
-        cwd: __dirname,
-    });
-    fs.writeFileSync(pidFile, pid);
-    console.log("daemon started");
-}
-
-/*
-
-
-
-forever.list(false, (err, data) => {
-    data = data || [];
-
-    if (!argv.multi || argv._.indexOf("start") === -1)
-        data.forEach(daemon => {
-            if (daemon.uid === UID) {
-                forever.stop(UID);
-                console.log("Server stoped.");
-            }
+    if (cmd.daemon === "start" || cmd.daemon === "restart") {
+        let daemonProcess = daemon.daemon("./lib/server.js", [], {
+            stdout: fs.openSync(config.logFile, "a+"),
+            stderr: fs.openSync(config.errFile, "a+"),
+            env: process.env,
+            cwd: __dirname,
         });
-
-    if (argv._.indexOf("stop") !== -1) {
-        if (!data.length) console.log("Server is not runing!");
-        return;
-    };
-
-    forever.startDaemon("./lib/server.js", {
-        uid: UID,
-    });
-
-    if (watch) {
-        let watcher = require("chokidar");
-
-        watcher.watch([
-            config.rootPath + config.apiPath,
-            config.rootPath + config.staticPath,
-        ]).on("change", () => {
-            forever.stop(UID);
-            forever.startDaemon("./lib/server.js", {
-                uid: UID,
-            });
-        });
+        let pid = daemonProcess.pid;
+        let fd = fs.openSync(pidFilePath, "a");
+        fs.writeSync(fd, Buffer.from(pid.toString() + "\n"));
+        console.log("daemon started");
     }
-
-    console.log("Server started" + (watch ? " in developement mode" : "") + ".");
-
-});
-*/
+})();
