@@ -5,7 +5,6 @@
     "rootPath": "/var/server/",
     "staticPath": "static",
     "apiPath": "api",
-    "logPath": "log",
     "errPagePath": "error",
     "socketFile": "socket/socket",
     "httpsKeyFile": "certificate/key.pem",
