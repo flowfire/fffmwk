@@ -45,6 +45,7 @@ server.json is config file.
     },
     "apiStringify": "json",
     "staticCache": 10,
+    "timeout": 0,
     "logFile": "log/server.log.txt",
     "errFile": "log/server.err.txt"
 } 
@@ -64,6 +65,7 @@ nomatchFile: if the static file is not found, show this file. In the single page
 apiHeaders: default Api headers. The api module will set these headers as default. It's useful while you want to access CROS in developer mode but not in product mode.  
 apiStringify: api return body default format. Can be set to "json", "toString" or "none".  
 staticCache: cache of static file. Set to 0 means no cache ( read file any time you use it. ). Set to number with out 0 ( read file while last read timestamp is older than it. Unit: second. ). String "Infinity" ( Cache forever until restart the server ).  
+timeout: while this is not 0, and api module runs longer then this, ther server will return server time out error (status Code 500), unit: second.
 logFile: stdout file.  
 errFile: stderr file.  
   

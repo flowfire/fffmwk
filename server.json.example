@@ -16,7 +16,8 @@
         "Access-Control-Allow-Methods": "*"
     },
     "apiStringify": "json",
-    "staticCache": 10,
+    "staticCache": 0,
+    "timeout": 0,
     "logFile": "log/server.log.txt",
     "errFile": "log/server.err.txt"
 }
