@@ -30,11 +30,8 @@
     },
     "homepage": "https://github.com/flowfire/fffmwk#readme",
     "dependencies": {
-        "chokidar": "^1.7.0",
         "commander": "^2.12.2",
         "daemon": "^1.1.0",
-        "forever": "^0.15.3",
-        "forever-monitor": "^1.7.1",
         "websocket": "^1.0.25"
     },
     "directories": {
