@@ -1,5 +1,4 @@
 # A simple node server for single page application #  
-version: v3.0.0
 
 How to use   
 install the package in global  
