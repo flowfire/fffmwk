@@ -29,6 +29,7 @@ server.json is config file.
     "port": 443,
     "http2": true,
     "https": true,
+    "httpRedirect": false,
     "rootPath": "/var/server/",
     "staticPath": "static",
     "apiPath": "api",
@@ -42,6 +43,8 @@ server.json is config file.
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "*"
     },
+    "staticHeaders": {},
+    "headers": {},
     "apiStringify": "json",
     "staticCache": 10,
     "timeout": 0,
@@ -53,6 +56,7 @@ server.json is config file.
 port: the http server port  
 http2: enable http2  
 https: enable https  
+httpRedirect: when https enabled, this option controls to create an additional http server using 80 port and redirect it to https site.   
 rootPath: root Path, the file root path, *NOTE: use absolute path.  
 staticPath: the static file path.  
 apiPath: the api mode path.  
@@ -61,7 +65,9 @@ httpsKeyFile: required if "https" is "true", the path of private key with pem en
 httpsCertFile: required if "https" is "true", the path of public key with pem encodin.  
 socketFile: the websocket module path.  
 nomatchFile: if the static file is not found, show this file. In the single page application, this is usually set to the 'index.html.  
-apiHeaders: default Api headers. The api module will set these headers as default. It's useful while you want to access CROS in developer mode but not in product mode.  
+apiHeaders: default Api headers. The api module will set these headers as default. It's useful while you want to access CROS in developer mode but not in product mode. 
+staticHeaders:  default static file headers. Such as Cache-Control and so on.  
+headers: all request will be added, such as HSTS headers.  
 apiStringify: api return body default format. Can be set to "json", "toString" or "none".  
 staticCache: cache of static file. Set to 0 means no cache ( read file any time you use it. ). Set to number with out 0 ( read file while last read timestamp is older than it. Unit: second. ). String "Infinity" ( Cache forever until restart the server ).  
 timeout: while this is not 0, and api module runs longer then this, ther server will return server time out error (status Code 500), unit: second.
@@ -87,6 +93,7 @@ Modified `server.json` as follow.
     "port": 443,
     "http2": true,
     "https": true,
+    "httpRedirect": false,
     "rootPath": "/usr/www",
     "staticPath": "static",
     "apiPath": "api",

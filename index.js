@@ -32,12 +32,12 @@
             case "apiPath":
             case "errPagePath":
                 config[key] += config[key].endsWith("/") ? "" : "/";
+            case "logFile":
+            case "errFile":
             case "socketFile":
             case "httpsKeyFile":
             case "httpsCertFile":
             case "nomatchFile":
-            case "logFile":
-            case "errFile":
                 if (!config[key].startsWith("/")) config[key] = config.rootPath + config[key];
                 break;
         }
