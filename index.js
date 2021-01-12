@@ -62,7 +62,7 @@
             stdout: fs.openSync(config.logFile, "a+"),
             stderr: fs.openSync(config.errFile, "a+"),
             env: process.env,
-            cwd: __dirname,
+            cwd: process.cwd(),
         });
         let pid = daemonProcess.pid;
         let fd = fs.openSync(pidFilePath, "a");
