@@ -58,7 +58,7 @@
     }
 
     if (cmd.daemon === "start" || cmd.daemon === "restart") {
-        let daemonProcess = daemon.daemon("./lib/server.js", [], {
+        let daemonProcess = daemon.daemon(path.join(__dirname, "./lib/server.js"), [], {
             stdout: fs.openSync(config.logFile, "a+"),
             stderr: fs.openSync(config.errFile, "a+"),
             env: process.env,
