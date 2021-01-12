@@ -57,9 +57,9 @@ port: the http server port
 http2: enable http2  
 https: enable https  
 httpRedirect: when https enabled, this option controls to create an additional http server using 80 port and redirect it to https site.   
-rootPath: root Path, the file root path, *NOTE: use absolute path.  
-staticPath: the static file path.  
-apiPath: the api mode path.  
+rootPath: root Path, the file root path, absolute path or relative to `pwd`.
+staticPath: the static file path, absolute path or relative to root path. 
+apiPath: the api mode path, absolute path or relative to root path.  
 errPagePath: the http error file path. Name with statusCode + ".html". eg. 404.html  
 httpsKeyFile: required if "https" is "true", the path of private key with pem encodin.  
 httpsCertFile: required if "https" is "true", the path of public key with pem encodin.  
