@@ -1,6 +1,6 @@
 {
     "name": "fffmwk",
-    "version": "3.1.2",
+    "version": "3.1.3",
     "description": "A simple node server for single page application.",
     "main": "index.js",
     "scripts": {
