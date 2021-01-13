@@ -2,6 +2,7 @@
 
 (async() => {
     let cmd = require("commander");
+    let path = require("path")
     let fs = require("fs");
     cmd
         .version("0.0.1")
