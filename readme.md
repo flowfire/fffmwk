@@ -53,26 +53,26 @@ server.json is config file.
 } 
 ```  
   
-port: the http server port  
-http2: enable http2  
-https: enable https  
-httpRedirect: when https enabled, this option controls to create an additional http server using 80 port and redirect it to https site.   
-rootPath: root Path, the file root path, absolute path or relative to `pwd`.
-staticPath: the static file path, absolute path or relative to root path. 
-apiPath: the api mode path, absolute path or relative to root path.  
-errPagePath: the http error file path. Name with statusCode + ".html". eg. 404.html  
-httpsKeyFile: required if "https" is "true", the path of private key with pem encodin.  
-httpsCertFile: required if "https" is "true", the path of public key with pem encodin.  
-socketFile: the websocket module path.  
-nomatchFile: if the static file is not found, show this file. In the single page application, this is usually set to the 'index.html.  
-apiHeaders: default Api headers. The api module will set these headers as default. It's useful while you want to access CROS in developer mode but not in product mode. 
-staticHeaders:  default static file headers. Such as Cache-Control and so on.  
-headers: all request will be added, such as HSTS headers.  
-apiStringify: api return body default format. Can be set to "json", "toString" or "none".  
-staticCache: cache of static file. Set to 0 means no cache ( read file any time you use it. ). Set to number with out 0 ( read file while last read timestamp is older than it. Unit: second. ). String "Infinity" ( Cache forever until restart the server ).  
-timeout: while this is not 0, and api module runs longer then this, ther server will return server time out error (status Code 500), unit: second.
-logFile: stdout file.  
-errFile: stderr file.  
+__port:__ the http server port  
+__http2:__ enable http2  
+__https:__ enable https  
+__httpRedirect:__ when https enabled, this option controls to create an additional http server using 80 port and redirect it to https site.   
+__rootPath:__ root Path, the file root path, absolute path or relative to `pwd`.  
+__staticPath:__ the static file path, absolute path or relative to root path.   
+__apiPath:__ the api mode path, absolute path or relative to root path.  
+__errPagePath:__ the http error file path. Name with statusCode + ".html". eg. 404.html  
+__httpsKeyFile:__ required if "https" is "true", the path of private key with pem encodin.  
+__httpsCertFile:__ required if "https" is "true", the path of public key with pem encodin.  
+__socketFile:__ the websocket module path.  
+__nomatchFile:__ if the static file is not found, show this file. In the single page application, this is usually set to the 'index.html.  
+__apiHeaders:__ default Api headers. The api module will set these headers as default. It's useful while you want to access CROS in developer mode but not in product mode.   
+__staticHeaders:__  default static file headers. Such as Cache-Control and so on.  
+__headers:__ all request will be added, such as HSTS headers.  
+__apiStringify:__ api return body default format. Can be set to "json", "toString" or "none".  
+__staticCache:__ cache of static file. Set to 0 means no cache ( read file any time you use it. ). Set to number with out 0 ( read file while last read timestamp is older than it. Unit: second. ). String "Infinity" ( Cache forever until restart the server ).  
+__timeout:__ while this is not 0, and api module runs longer then this, ther server will return server time out error (status Code 500), unit: second.  
+__logFile:__ stdout file.  
+__errFile:__ stderr file.  
   
   
 eg:  

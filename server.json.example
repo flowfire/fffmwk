@@ -27,6 +27,6 @@
     "apiStringify": "json",
     "staticCache": 0,
     "timeout": 0,
-    "logFile": "log/server.log.txt",
-    "errFile": "log/server.err.txt"
+    "logFile": "log/server.log",
+    "errFile": "log/server.err"
 }
